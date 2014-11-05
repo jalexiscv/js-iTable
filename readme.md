@@ -1,18 +1,6 @@
 # iTable for Mootools
 
-Enchanced table viewer written JS helped with [MooTools](http://mootools.net/) based on [Marko Šantić work](http://www.omnisdata.com/omnigrid/)
-
-[Mootools-Core](http://mootools.net/download) and [Drag module](http://mootools.net/more/f7005197184c1ad698fa1b435a9aecc0) dependent.
-
-## About
-
-The iTable component is inspired by two similar components: FlexGrid jQuery and phatfusion:sortableTable and partly uses their source code. It was developed due to a lack of powerful DataGrid for Mootools library. The original author is Marko Šantić from Omnisdata company.
-
-Omnigrid - Advanced DataGrid for Mootools by Omnisdata Ltd is licensed under a MIT License.
-
-Feel free to fork it to request new features.
-
-## Documentation
+El componente iTable se inspira en tres componentes similares: [Omnigrid] Omnigrid desarrolado por Marko Šantić, [FlexGrid]() jQuery y [phatfusion]: sortableTable. Se desarrolla debido a la necesidad de un DataGrid refinado para la biblioteca [MooTools](http://mootools.net/). La idea y adaptación original es Marko Šantić de empresa Omnisdata Ltd quien proveía este código bajo una licencia MIT.  El texto de la licencia no tiene copyright, lo que permite su modificación. No obstante el autor se vio obligado a usar esta licencia por la similitud estructural de la clase con el FlexGrid de jQuery(Versiones Antiguas), como si se tratara una modificación, y no una versión original. La licencia MIT es muy parecida a la licencia BSD en cuanto a efectos. Y más que adicionar nuevas características, mi propósito ha sido realizar una reingeniería del código para estandarizar y optimizar sus procesos creando una versión original con remembranza de sus ancestros, que se adapte a mis necesidades y sea compatible con la plataforma Mootools en su versión 1.5.x para el uso en el mis proyectos y el Framework Insside, como si se tratase de de un Pluggin del mismo. Este repositorio sufría constantes actualizaciones durante el último trimestre del año 2014 y limitara su dependencia a [Mootools-Core](http://mootools.net/download) y el modulo Drag [Mootools-More](http://mootools.net/more/f7005197184c1ad698fa1b435a9aecc0).
 
 ### Options
 
@@ -263,11 +251,6 @@ These options are also available and all are optional :
 
 ?>
 ```
-
-### Omnigrid + Bootstrap
-
-Maybe you want to use omnigrid with bootstrap.
-
 It is quasi compliant. I personally use these complementary CSS rules to make it full compliant :
 
 ``` css
