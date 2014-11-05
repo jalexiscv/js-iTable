@@ -1,0 +1,723 @@
+
+
+/* ******************************************************* */
+.iTable{
+  font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  position: relative;
+  border: 0px solid #eee;
+  overflow:hidden; /* za debug iskljuci */
+  color: #000;
+
+}
+.iTable div.hDivBox
+{
+  position:relative;
+  overflow:hidden;
+}
+.iTable div.hDiv /* header div */
+{
+  background: #f0f0f0;
+  background: -moz-linear-gradient(top, #f9f9f9 0%, #f9f9f9 43%, #f1f2f4 44%, #ebecee 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f0f0f0), color-stop(43%,#f9f9f9), color-stop(44%,#f1f2f4), color-stop(100%,#ebecee));
+  background: -webkit-linear-gradient(top, #f9f9f9 0%,#f9f9f9 43%,#f1f2f4 44%,#ebecee 100%);
+  background: -o-linear-gradient(top, #f9f9f9 0%,#f9f9f9 43%,#f1f2f4 44%,#ebecee 100%);
+  background: -ms-linear-gradient(top, #f9f9f9 0%,#f9f9f9 43%,#f1f2f4 44%,#ebecee 100%);
+  background: linear-gradient(to bottom, #f9f9f9 0%,#f9f9f9 43%,#f1f2f4 44%,#ebecee 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f0f0f0', endColorstr='#ebecee',GradientType=0 );
+  position: relative;
+  border: 1px solid #ccc;
+  border-bottom: 0px;
+  overflow: hidden;
+}	
+.iTable div.bDiv /* body div */
+{
+  border: 1px solid #ccc;
+  border-top: 0px;
+  background: #fff;
+  overflow: auto;
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.iTable div.hDiv .th, .iTable div.bDiv .td /* common cell properties*/
+{
+  text-align: left;
+  border-right: 1px solid #ddd;
+  /**border-left: 1px solid #fff;**/
+  vertical-align: top !important;
+
+  display:inline-block;
+  float:left;
+  white-space:nowrap;
+  overflow:hidden;
+  /*
+  padding-top:0;
+  padding-bottom:0;
+  padding-left:5px;
+  */
+  /*-moz-user-select:none;*/ /* utjece na inline edit, input */
+  cursor:pointer;
+}
+.iTable ::selection{
+  color:none;
+  background-color:transparent;
+}
+.iTable div.hDiv div.th{
+  line-height:24px;
+  text-align: center;
+  border-bottom: 1px solid #CCC;
+    padding-left: 10px !important; 
+  padding-right: 10px !important;
+}
+.iTable div.bDiv .td{
+  height: 24px;
+  line-height: 24px;
+  padding-left: 10px !important; 
+  padding-right: 10px !important;
+  /*background-color:red;*/
+}
+.iTable div.bDiv .td span{padding-left: 10px; padding-right: 10px;}
+.iTable div.bDiv ul{
+  margin:0;
+  padding:0;
+  border-bottom:1px solid #DDDDDD;
+  overflow:hidden;
+}
+.iTable img{padding-top: 4px;}
+.iTable div.bDiv ul li{
+  margin:0;
+  padding:0;
+  list-style:none;
+  overflow:hidden;
+}
+.iTable li.erow /* alt rows */
+{
+  background-color: #f7f7f7;
+  /*border-bottom: 1px solid #f7f7f7;*/
+}
+.iTable li.selected {
+  background-color: #d9e6f4 !important;
+  /*color: #fff;*/
+}
+.iTable li.over {
+  background-color: #eaeff4;
+  /*color: #fff;*/
+}
+/* ************************************** */
+/* ************** Accordian ************** */
+/* ************************************** */
+.iTable div.bDiv .toggleicon{
+  background-image: url(img/plusminus.gif);
+  background-repeat:no-repeat;
+  width:16px;
+  height:16px;
+  float:left;
+  margin:4px 3px 0 0;
+}
+.iTable div.bDiv ul li.section{
+  display:none;
+  border-right: 1px solid #ddd;
+  border-bottom: 1px solid #eeeeee;
+  border-top: 1px solid #eeeeee;
+}
+/* ************************************** */
+/* ************** Toolbar *************** */
+/* ************************************** */
+.iTable div.tDiv
+{
+  background: #fafafa url(img/bg.gif) repeat-x top;
+  position: relative;	
+  border: 1px solid #ccc;
+  border-bottom: 0px;
+  overflow: hidden;
+
+  height:25px;
+}
+.iTable div.fbutton
+{
+  margin-top:1px;
+  float: left;
+  display: block;
+  cursor: pointer;
+  padding: 1px;
+  font-size: 14px;
+}
+.iTable div.fbutton div
+{
+  float: left;
+  padding: 1px 3px;
+}	
+.iTable div.fbutton span
+{
+  float: left;
+  display: block;
+  padding: 3px;
+}
+.iTable div.fbutton.fbOver
+{
+  padding: 0px;
+  border: 1px solid #ccc;
+}
+.iTable div.fbutton.fbOver div
+{
+  padding: 0px 2px;
+  border-left: 1px solid #fff;
+  border-top: 1px solid #fff;
+  border-right: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+}	
+.iTable div.btnseparator
+{
+  float: left;
+  height: 22px;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #fff;
+  margin: 2px;
+}
+/* end toolbar*/
+
+/* ************************************** */
+
+/* ************************************** */
+/* ************** Filter **************** */
+/* ************************************** */
+
+.iTable li.hide {
+  display: none;
+}
+
+.iTable li.filter {
+
+}
+
+/* ************************************** */
+/* ************** Columns size drag ***** */
+/* ************************************** */
+
+.iTable div.cDrag
+{
+  float: left;
+  position: absolute;
+  z-index: 2;
+  overflow: visible;
+}
+
+.iTable div.cDrag div
+{
+  float: left;
+  background: none;
+  display: block;
+  position: absolute;
+  height: 24px;
+  width: 5px;
+  cursor: col-resize;
+
+}
+
+.iTable div.cDrag div.dragging
+{
+  background: url(img/line.gif) repeat-y 2px center;
+}
+
+/* ************************************** */
+/* ************** Sort ****************** */
+/* ************************************** */
+
+.iTable div.hDiv div.DESC
+{
+  background: url(img/ddn.png) no-repeat right 5px center;
+}	
+
+.iTable div.hDiv div.ASC
+{
+  background: url(img/uup.png) no-repeat right 5px center;
+}
+
+.iTable div.hDiv div.th:hover
+{
+  border-bottom: 1px solid orange !important;
+}
+
+/* ************************************** */
+/* ************** Pagination ************ */
+/* ************************************** */
+
+.iTable div.pDiv
+{
+  background: #f0f0f0;
+  background: -moz-linear-gradient(top, #f0f0f0 0%, #d7d7d7 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f0f0f0), color-stop(100%,#d7d7d7));
+  background: -webkit-linear-gradient(top, #f0f0f0 0%,#d7d7d7 100%);
+  background: -o-linear-gradient(top, #f0f0f0 0%,#d7d7d7 100%);
+  background: -ms-linear-gradient(top, #f0f0f0 0%,#d7d7d7 100%);
+  background: linear-gradient(to bottom, #f0f0f0 0%,#d7d7d7 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f0f0f0', endColorstr='#d7d7d7',GradientType=0 );
+  border: 1px solid #ccc;
+  border-top: 0px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.iTable div.pDiv div.pDiv2
+{
+  margin: 2px;
+  margin-left: -2px;
+  float: left;
+  width: 1024px;
+}	
+
+div.pGroup
+{
+  float: left;
+  background: none;
+  height: 24px;
+  margin: 0px 5px;
+}
+
+.iTable div.pDiv .pPageStat, .iTable div.pDiv .pcontrol
+{
+  position: relative;
+  top: 5px;
+  overflow: visible;
+  font-size:10px;
+  color:#777777;
+}
+
+.iTable div.pDiv select
+{
+  font-size:10px;
+  margin-top:2px;
+}
+
+.iTable div.pDiv input
+{
+  vertical-align: text-top;
+  position: relative;
+  top: -2px;
+  font-size:10px;
+}
+
+.iTable div.pDiv .btnseparator{
+  height:19px;
+}
+
+.iTable div.pDiv div.pButton
+{
+  float: left;
+  width:16px;
+  height:16px;
+  border: 0px;
+  cursor: pointer;
+  overflow: hidden;
+  margin-top:3px;
+}
+
+.iTable div.pDiv div.pButton:hover, .iTable div.pDiv div.pButton.pBtnOver
+{
+  background-position:-16px 0;
+}
+
+.iTable2 div.pDiv div.pButton:hover, .iTable2 div.pDiv div.pButton.pBtnOver
+{
+  width:14px;
+  height:14px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.iTable .pSearch
+{
+  background: url(img/magnifier.png) no-repeat center;
+}
+
+.iTable .pFirst
+{
+  background: url(img/first.gif) no-repeat ;
+}
+
+.iTable .pPrev
+{
+  background: url(img/prev.gif) no-repeat;
+}
+
+.iTable .pNext
+{
+  background: url(img/next.gif) no-repeat;
+}
+
+.iTable .pLast
+{
+  background: url(img/last.gif) no-repeat;
+}
+
+.iTable .pReload
+{
+  background: url(img/refresh.gif) no-repeat;
+}
+
+.iTable .pReload.loading
+{
+  background: url(img/load.gif) no-repeat;
+  background-position:0 0 !important;
+}
+
+.iTable .elementloader{
+  width:16px;
+  height:16px;
+  background: url(img/load.gif) no-repeat;
+  position:absolute;
+}
+/* *************************************** */
+/* ************** Inline-Edit ************ */
+/* *************************************** */
+
+.iTable input.inline{
+  /*width:100px;
+  height:15px;*/
+  padding:1px 2px 1px 2px;
+
+  /* pazi na -moz-user-select od div.td */
+}
+
+/*
+*::-moz-selection {
+background: #FF3C00;
+color: #FFF;
+}*/
+
+/* ************************************************************************************ */
+/** Barra de herramientas **/
+.iTable div.tDiv i {
+  background-image: url("iconos.fw.png") !important;
+  background-repeat: no-repeat;
+  background-size: auto auto;
+  border-color: #C4CCDA;
+  border-image: none 100% 100% 100% 100% / 0 0 0 0;
+  border-style: none;
+  border-width: 0;
+  color: #C4CCDA;
+  cursor: pointer;
+  direction: ltr;
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+  list-style: none outside none;
+  margin-left: 0px;
+  margin-top: 1px;
+  vertical-align: middle;
+}
+.iTable div.tDiv .etiqueta{padding: 0px 0px;font-size: 14px;}
+.iTable .pNuevo{background-position: left 0px top 0px;background-size: 16px 16px;}
+.iTable .pEditar{background-position: left 0px top -48px;background-size: 16px 16px;}
+.iTable .pAbrir{background-position: left -16px top -48px;background-size: 16px 16px;}
+.iTable .pEliminar{background-position: left -16px top 0px;background-size: 16px 16px;}
+.iTable .pBuscar{background-position: left 0px top -16px;background-size: 16px 16px;}
+.iTable .pFiltrar{background-position: left -16px top -16px;background-size: 16px 16px;}
+.iTable .pInformacion{background-position: left -48px top 0px;background-size: 16px 16px;}
+.iTable .pSearch{background: url(img/magnifier.png) no-repeat left;}
+.iTable .pFirst{background: url(img/first.gif) no-repeat ;}
+.iTable .pPrev{background: url(img/prev.gif) no-repeat;}
+.iTable .pNext{background: url(img/next.gif) no-repeat;}
+.iTable .pLast{background: url(img/last.gif) no-repeat;}
+.iTable .pReload{background: url(img/refresh.gif) no-repeat;}
+.iTable .pReload.loading{left:0px;width:16px;height:16px;background: url(img/load.gif) no-repeat;background-position:0 0 !important;}/** Resplaza el icono del boton actualizar **/
+.iTable .elementloader{left:0px;width:16px;height:16px;background: url(img/load.gif) no-repeat;position:absolute;}
+.iTable .codigo{ float:left;}
+.iTable .numero{ float:right;}
+
+/** Iconos **/
+.icono16x16geolocalizacionrojo{
+  background-image: url("../../imagenes/iconos-16x16.fw.png") !important;
+  background-position: left 0 top -331px;
+  background-repeat: no-repeat;
+  background-size: auto auto;
+  display: inline-block;
+  height: 16px;
+  left: 0px;
+  position: relative;
+  top: 4px;
+  width: 16px;
+}
+.icono16x16geolocalizacionnaranja{
+  background-image: url("../../imagenes/iconos-16x16.fw.png") !important;
+  background-position: left 0 top -316px;
+  background-repeat: no-repeat;
+  background-size: auto auto;
+  display: inline-block;
+  height: 16px;
+  left: 0px;
+  position: relative;
+  top: 4px;
+  width: 16px;
+}
+.icono16x16geolocalizacionverde{
+  background-image: url("../../imagenes/iconos-16x16.fw.png") !important;
+  background-position: left 0 top -300px;
+  background-repeat: no-repeat;
+  background-size: auto auto;
+  display: inline-block;
+  height: 16px;
+  left: 0px;
+  position: relative;
+  top: 4px;
+  width: 16px;
+}
+
+.icono16x16adjuntosninguno{
+  background-image: url("../../imagenes/iconos-16x16.fw.png") !important;
+  background-position: left 0 top -255px;
+  background-repeat: no-repeat;
+  background-size: auto auto;
+  display: inline-block;
+  height: 16px;
+  left: 0px;
+  position: relative;
+  top: 4px;
+  width: 16px;
+}
+.icono16x16adjuntosexistentes{
+  background-image: url("../../imagenes/iconos-16x16.fw.png") !important;
+  background-position: left 0 top -270px;
+  background-repeat: no-repeat;
+  background-size: auto auto;
+  display: inline-block;
+  height: 16px;
+  left: 0px;
+  position: relative;
+  top: 4px;
+  width: 16px;
+}
+.icono16x16solicitudrojo{
+  background-image: url("../../imagenes/iconos-16x16.fw.png") !important;
+  background-position: left 0 top -60px;
+  background-repeat: no-repeat;
+  background-size: auto auto;
+  display: inline-block;
+  height: 16px;
+  left: 0px;
+  position: relative;
+  top: 4px;
+  width: 16px;
+}
+.icono16x16solicitudnaranja{
+  background-image: url("../../imagenes/iconos-16x16.fw.png") !important;
+  background-position: left 0 top -45px;
+  background-repeat: no-repeat;
+  background-size: auto auto;
+  display: inline-block;
+  height: 16px;
+  left: 0px;
+  position: relative;
+  top: 4px;
+  width: 16px;
+}
+.icono16x16solicitudverde {
+  background-image: url("../../imagenes/iconos-16x16.fw.png") !important;
+  background-position: left 0 top -30px;
+  background-repeat: no-repeat;
+  background-size: auto auto;
+  display: inline-block;
+  height: 16px;
+  left: 0px;
+  position: relative;
+  top: 4px;
+  width: 16px;
+}
+.icono16x16solicitudazul {
+  background-image: url("../../imagenes/iconos-16x16.fw.png") !important;
+  background-position: left 0 top -285px;
+  background-repeat: no-repeat;
+  background-size: auto auto;
+  display: inline-block;
+  height: 16px;
+  left: 0px;
+  position: relative;
+  top: 4px;
+  width: 16px;
+}
+
+.icono16x16respuestarojo {
+  background-image: url("../../imagenes/iconos-16x16.fw.png") !important;
+  background-position: left 0 top -105px;
+  background-repeat: no-repeat;
+  background-size: auto auto;
+  display: inline-block;
+  height: 16px;
+  left: 0px;
+  position: relative;
+  top: 4px;
+  width: 16px;
+}
+.icono16x16respuestanaranja {
+  background-image: url("../../imagenes/iconos-16x16.fw.png") !important;
+  background-position: left 0 top -90px;
+  background-repeat: no-repeat;
+  background-size: auto auto;
+  display: inline-block;
+  height: 16px;
+  left: 0px;
+  position: relative;
+  top: 4px;
+  width: 16px;
+}
+.icono16x16respuestaverde {
+  background-image: url("../../imagenes/iconos-16x16.fw.png") !important;
+  background-position: left 0 top -75px;
+  background-repeat: no-repeat;
+  background-size: auto auto;
+  display: inline-block;
+  height: 16px;
+  left: 0px;
+  position: relative;
+  top: 4px;
+  width: 16px;
+}
+.icono16x16notificacionrojo {
+  background-image: url("../../imagenes/iconos-16x16.fw.png") !important;
+  background-position: left 0 top -150px;
+  background-repeat: no-repeat;
+  background-size: auto auto;
+  display: inline-block;
+  height: 16px;
+  left: 0px;
+  position: relative;
+  top: 4px;
+  width: 16px;
+}
+.icono16x16notificacionnaranja {
+  background-image: url("../../imagenes/iconos-16x16.fw.png") !important;
+  background-position: left 0 top -135px;
+  background-repeat: no-repeat;
+  background-size: auto auto;
+  display: inline-block;
+  height: 16px;
+  left: 0px;
+  position: relative;
+  top: 4px;
+  width: 16px;
+}
+.icono16x16notificacionverde {
+  background-image: url("../../imagenes/iconos-16x16.fw.png") !important;
+  background-position: left 0 top -120px;
+  background-repeat: no-repeat;
+  background-size: auto auto;
+  display: inline-block;
+  height: 16px;
+  left: 0px;
+  position: relative;
+  top: 4px;
+  width: 16px;
+}
+.icono16x16tiemporojo {
+  background-image: url("../../imagenes/iconos-16x16.fw.png") !important;
+  background-position: left 0 top -225px;
+  background-repeat: no-repeat;
+  background-size: auto auto;
+  display: inline-block;
+  height: 16px;
+  left: 0px;
+  position: relative;
+  top: 4px;
+  width: 16px;
+}
+.icono16x16tiemponaranja {
+  background-image: url("../../imagenes/iconos-16x16.fw.png") !important;
+  background-position: left 0 top -210px;
+  background-repeat: no-repeat;
+  background-size: auto auto;
+  display: inline-block;
+  height: 16px;
+  left: 0px;
+  position: relative;
+  top: 4px;
+  width: 16px;
+}
+.icono16x16tiempoverde {
+  background-image: url("../../imagenes/iconos-16x16.fw.png") !important;
+  background-position: left 0 top -195px;
+  background-repeat: no-repeat;
+  background-size: auto auto;
+  display: inline-block;
+  height: 16px;
+  left: 0px;
+  position: relative;
+  top: 4px;
+  width: 16px;
+}
+.icono16x16tiempodeshabilitado {
+  background-image: url("../../imagenes/iconos-16x16.fw.png") !important;
+  background-position: left 0 top -240px;
+  background-repeat: no-repeat;
+  background-size: auto auto;
+  display: inline-block;
+  height: 16px;
+  left: 0px;
+  position: relative;
+  top: 4px;
+  width: 16px;
+}
+.icono16x16creador {
+  background-image: url("../../imagenes/iconos-16x16.fw.png") !important;
+  background-position: left 0 top -180px;
+  background-repeat: no-repeat;
+  background-size: auto auto;
+  display: inline-block;
+  height: 16px;
+  left: 0px;
+  position: relative;
+  top: 4px;
+  width: 16px;
+}
+.icono16x16eliminar {
+  background-image: url("../../imagenes/iconos-16x16.fw.png") !important;
+  background-position: left 0 top -165px;
+  background-repeat: no-repeat;
+  background-size: auto auto;
+  display: inline-block;
+  height: 16px;
+  left: 0px;
+  position: relative;
+  top: 4px;
+  width: 16px;
+}
+
+.icono16x16legalizacionrojo {
+  background-image: url("../../imagenes/iconos-16x16.fw.png") !important;
+  background-position: left 0 top -375px;
+  background-repeat: no-repeat;
+  background-size: auto auto;
+  display: inline-block;
+  height: 16px;
+  left: 0px;
+  position: relative;
+  top: 4px;
+  width: 16px;
+}
+.icono16x16legalizacionnaranja {
+  background-image: url("../../imagenes/iconos-16x16.fw.png") !important;
+  background-position: left 0 top -360px;
+  background-repeat: no-repeat;
+  background-size: auto auto;
+  display: inline-block;
+  height: 16px;
+  left: 0px;
+  position: relative;
+  top: 4px;
+  width: 16px;
+}
+.icono16x16legalizacionverde {
+  background-image: url("../../imagenes/iconos-16x16.fw.png") !important;
+  background-position: left 0 top -345px;
+  background-repeat: no-repeat;
+  background-size: auto auto;
+  display: inline-block;
+  height: 16px;
+  left: 0px;
+  position: relative;
+  top: 4px;
+  width: 16px;
+}

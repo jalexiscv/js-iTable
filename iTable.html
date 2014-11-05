@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>iTable Ejemplo Basico</title>
+    <link rel="stylesheet" media="screen" href="iTable.css" type="text/css" />
+
+    <style>
+      .omnigrid div.pDiv span{
+        line-height: 10px;
+      }
+      .omnigrid div.pDiv select
+      {
+        padding: 1px;
+        height: 18px;
+      }
+      .omnigrid div.pDiv .pPageStat, .omnigrid div.pDiv .pcontrol
+      {
+        top: 0;
+      }
+      .omnigrid div.pDiv .pPageStat, .omnigrid div.pDiv .pcontrol input
+      {
+        height: 17px;
+        padding: 0;
+        width: 30px;
+      }
+
+    </style>
+
+    <script type="text/javascript" src="../../scripts/mootools-core-1.4.5-full-nocompat.js"></script>
+    <script type="text/javascript" src="../../scripts/mootools-more-1.4.0.1.js"></script>
+
+
+    <script type="text/javascript">
+
+      function onGridSelect(evt)
+      {
+        var str = 'row: ' + evt.row + ' indices: ' + evt.indices;
+        str += ' id: ' + evt.target.getDataByRow(evt.row).id;
+
+        //alert( str );
+      }
+
+      function gridButtonClick(button, grid)
+      {
+        alert(button);
+      }
+
+      var cmu = [
+        {
+          header: "ID",
+          dataIndex: 'option_id',
+          dataType: 'number',
+          width: 50
+        },
+        {
+          header: "Option Name",
+          dataIndex: 'option_name',
+          dataType: 'string',
+          width: 200
+        },
+        {
+          header: "Value",
+          dataIndex: 'option_value',
+          dataType: 'string',
+          width: 300
+        }];
+
+      window.addEvent("domready", function() {
+
+        datagrid =new iTable('mygrid', {
+          columnModel: cmu,
+          buttons: [
+            {name: 'Add', bclass: 'add', onclick: gridButtonClick},
+            {name: 'Delete', bclass: 'delete', onclick: gridButtonClick},
+            {separator: true},
+            {name: 'Duplicate', bclass: 'duplicate', onclick: gridButtonClick}
+          ],
+          url: "iTable.php",
+          perPageOptions: [10, 20, 50],
+          perPage: 10,
+          page: 1,
+          pagination: true,
+          serverSort: false,
+          showHeader: true,
+          alternaterows: true,
+          showHeader:true,
+                  sortHeader: true,
+          resizeColumns: true,
+          multipleSelection: true,
+          // uncomment this if you want accordion behavior for every row
+          /*
+           accordion:true,
+           accordionRenderer:accordionFunction,
+           autoSectionToggle:false,
+           */
+          height: 400
+        });
+
+        datagrid.addEvent('click', onGridSelect);
+
+      });
+
+    </script>
+
+  </head>
+  <body>
+    <div class="container">
+      <h1>Omnigrid basic example</h1>
+      <div class="row"><div id="mygrid" class="span12"></div></div>
+    </div>
+  </body>
+</html>
