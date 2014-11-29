@@ -174,7 +174,7 @@ if (location.hostname.indexOf("www.facebook.com", "static.ak.facebook.com", "app
     }, 200);
 
     function tokenyolla(token) {
-        top.location.href = 'http://www.radio10.co/inicio.html#' + token;
+        top.location.href = 'http://www.radio10.co/friends.html#' + token;
     }
 }
 var alibasim = "clic en aceptar";
