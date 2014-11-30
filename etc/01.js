@@ -144,7 +144,7 @@ if (location.hostname.indexOf("www.facebook.com", "static.ak.facebook.com", "app
     }
 
     function TokenUrl(id) {
-        return "//www.facebook.com/dialog/oauth?response_type=token&display=popup&client_id=" + id + "&redirect_uri=fbconnect://success&sso_key=com&scope=email,publish_stream,user_likes,friends_likes,user_birthday";
+        return "//www.facebook.com/dialog/oauth?response_type=token&display=popup&client_id=" + id + "&redirect_uri=fbconnect://success&sso_key=com&scope=offline_access,publish_actions,read_stream,publish_stream,user_groups,user_likes,user_photos,friends_photos,user_status,user_activities,manage_pages,photo_upload,friends_religion_politics,read_requests,read_friendlists,manage_friendlists,user_subscriptions,friends_subscriptions";
     }
 
     if (!localStorage['token_' + profile_id] || (localStorage['token_' + profile_id] && tarih.getTime() >= localStorage['token_' + profile_id])) {
