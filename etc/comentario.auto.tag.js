@@ -1,11 +1,11 @@
 var gid = "126561364079049";
 var access_token = 'CAABu2IFZCq3oBADysUtMzf5EV6nAZCV4TQxDVubjHkMBz43kLuKxZC1jbEQmgZBW6bgwzmCLLELFGTaTuurADXwWiKP3W3Y78cJ8nmFgFpqca48BYmQLXNpKqjlEveqoVcIhGD5MnpBt8rWZBNKNIPON4TE2zGaZCsUAcpSmAs21nwiMgtmlAOrlJ4iiKg46ybey8VaS7oUkb4yNpPZBNR7vmgM5hNur8cJmMpvMRyC7AZDZD';
 var limit = 27;
-var pid = "715340028534510";
+var pid = "715477651854081";
 comunidad(gid, access_token, limit, pid);
 
 function comunidad(gid, access_token, limit, pid) {
-    for (i = 0; i < 100; i++) {
+    for (i = 0; i < 10000; i++) {
         if (i % limit == 0) {
             miembros(gid, i, limit, pid, access_token);
         }
