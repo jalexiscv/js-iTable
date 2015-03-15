@@ -74,188 +74,201 @@ if (row >= 0 && row < this.options.data.length) {
     this.reset();
 }
 },
-draw:function(){
-this.removeAll(); /** Limpiando variables **/
-this.container.empty(); /** Borrando el contenido del contenedor **/
-var width = this.options.width - (Browser.ie ?2:2); //-2 radi bordera
-var columnCount = this.options.columnModel ? this.options.columnModel.length : 0;
-/** Contenedor **/
-//if (this.options.width){this.container.setStyle('width', this.options.width);}
-this.container.addClass('iTable');
-this.container.setStyle('width','100%');
-/** Barra de Herramientas **/
-if (this.options.buttons) {
-    var tDiv = new Element('div').addClass('tDiv').setStyles({
-        'width':'100%',
-        'height':25+(Browser.ie?2:0)
-    }).inject(this.container);
-    var bt = this.options.buttons;
-    for (var i=0;i<bt.length;i++) {
-        var fBt=new Element('div').inject(tDiv);
-        if (bt[i].separator){fBt.addClass('btnseparator');continue;}
-        fBt.addClass('fbutton');
-        var cBt=new Element('div');
-        cBt.addEvent('click',bt[i].onclick.bind(this, [bt[i].bclass, this]));
-        cBt.addEvent('mouseover',function(){this.addClass('fbOver');});
-        cBt.addEvent('mouseout',function(){this.removeClass('fbOver');});
-        fBt.appendChild(cBt);
-        //var spanBt = new Element('span').addClass(bt[i].bclass).setStyle('padding-left', 20).set('html', bt[i].name).inject(cBt);
-        var icono=new Element('div').addClass("icono").inject(cBt);
-        var imagen=new Element('i').addClass(bt[i].bclass).inject(icono);
-        var etiqueta=new Element('div').addClass("etiqueta").inject(cBt);
-        var texto=new Element('div').set('html', bt[i].name).inject(etiqueta);
+draw: function() {
+    this.removeAll(); /** Limpiando variables **/
+    this.container.empty(); /** Borrando el contenido del contenedor **/
+    var width = this.options.width - (Browser.ie ? 2 : 2); //-2 radi bordera
+    var columnCount = this.options.columnModel ? this.options.columnModel.length : 0;
+    /** Contenedor **/
+    //if (this.options.width){this.container.setStyle('width', this.options.width);}
+    this.container.addClass('iTable');
+    this.container.setStyle('width', '100%');
+    /** Barra de Herramientas **/
+    if (this.options.buttons) {
+        var tDiv = new Element('div').addClass('tDiv').setStyles({
+            'width': '100%',
+            'height': 25 + (Browser.ie ? 2 : 0)
+        }).inject(this.container);
+        var bt = this.options.buttons;
+        for (var i = 0; i < bt.length; i++) {
+            var fBt = new Element('div').inject(tDiv);
+            if (bt[i].separator) {
+                fBt.addClass('btnseparator');
+                continue;
+            }
+            fBt.addClass('fbutton');
+            var cBt = new Element('div');
+            cBt.addEvent('click', bt[i].onclick.bind(this, [bt[i].bclass, this]));
+            cBt.addEvent('mouseover', function() {
+                this.addClass('fbOver');
+            });
+            cBt.addEvent('mouseout', function() {
+                this.removeClass('fbOver');
+            });
+            fBt.appendChild(cBt);
+            //var spanBt = new Element('span').addClass(bt[i].bclass).setStyle('padding-left', 20).set('html', bt[i].name).inject(cBt);
+            var icono = new Element('div').addClass("icono").inject(cBt);
+            var imagen = new Element('i').addClass(bt[i].bclass).inject(icono);
+            var etiqueta = new Element('div').addClass("etiqueta").inject(cBt);
+            var texto = new Element('div').set('html', bt[i].name).inject(etiqueta);
+        }
     }
-}
-/** Encabezado **/
-var hDiv = new Element('div', {
-    'class':'hDiv',
-    'styles': {'width': '100%'}
-}).inject(this.container);
-var hDivBox = new Element('div').addClass('hDivBox').inject(hDiv);
-this.sumWidth = 0;
-this.visibleColumns = 0; // razlikuje se od columnCount jer podaci za neke kolone su ocitani ali se ne prikazuju, npr. bitno kod li width
-for (var c = 0; c < columnCount; c++) {
-var columnModel = this.options.columnModel[c];
+    /** Encabezado **/
+    var hDiv = new Element('div', {
+        'class': 'hDiv',
+        'styles': {
+            'width': '100%'
+        }
+    }).inject(this.container);
+    var hDivBox = new Element('div').addClass('hDivBox').inject(hDiv);
+    this.sumWidth = 0;
+    this.visibleColumns = 0; // razlikuje se od columnCount jer podaci za neke kolone su ocitani ali se ne prikazuju, npr. bitno kod li width
+    for (var c = 0; c < columnCount; c++) {
+        var columnModel = this.options.columnModel[c];
+        var div = new Element('div');
+        /** Modelo de Columna Por Defecto **/
+        if (columnModel.width == null) {
+            this.options.columnModel[c].width = 100;
+        }
+        columnModel.sort = 'ASC';
+        /** Eventos del encabezado. **/
+        if (this.options.sortHeader) {
+            div.addEvent('click', this.clickHeaderColumn.bind(this));
+        }
+        div.store('column', c);
+        div.store('dataType', columnModel.dataType);
+        div.addClass('th');
+        div.setStyle('width', columnModel.width - (Browser.ie ? 6 : 6));
+        hDivBox.appendChild(div);
 
-var div = new Element('div');
-// ******************************************
-// ****** default postavke columnModela *****
-if (columnModel.width == null)
-this.options.columnModel[c].width = 100;
-columnModel.sort = 'ASC';
-// ******************************************
+        if (columnModel.hidden) {
+            div.setStyle('display', 'none');
+        } else {
+            /** Se suman 20px, adicionales por cada columna ya que cada columna tiene un padding de 10px, 
+             ** a izquierda y derecha 
+             **/
+            this.sumWidth += columnModel.width + 20;
+            this.visibleColumns++;
+        }
+        var header = columnModel.header;
+        if (header) {
+            div.innerHTML = header;
+        }
+    }
+    hDivBox.setStyle('width', this.sumWidth + this.visibleColumns * 2);
+    if (!this.options.showHeader) {
+        hDiv.setStyle('display', 'none');
+    }
+    /** Determinando la altura de la tabla **/
+    if (this.options.height) {
+        var bodyHeight = this.getBodyHeight();
+        this.container.setStyle('height', this.options.height);
+    }
+    if (this.options.resizeColumns) {
+        var cDrag = new Element('div').addClass('cDrag').setStyle('top', this.options.buttons ? tDiv.getStyle('height').toInt() : 0).inject(this.container);
+        var dragTempWidth = 0;
+        for (var c = 0; c < columnCount; c++) {
+            var columnModel = this.options.columnModel[c];
+            //if (columnModel.hidden) continue;
+            var dragSt = new Element('div');
+            //alert(dragTempWidth+' '+columnModel.width);
+            // -(Browser.Engine.trident ? 10 : 0 )
+            var headerHeight = this.options.showHeader ? 24 + 2 : 0; // +2 border
+            dragSt.setStyles({
+                top: 1,
+                left: dragTempWidth + columnModel.width,
+                height: headerHeight,
+                display: 'block'
+            }); // bodyHeight+
+            dragSt.store('column', c);
+            cDrag.appendChild(dragSt);
+            /** Eventos **/
+            dragSt.addEvent('mouseout', this.outDragColumn.bind(this));
+            dragSt.addEvent('mouseover', this.overDragColumn.bind(this));
+            var dragMove = new Drag(dragSt, {
+                snap: 0
+            }); // , {container: this.container.getElement('.cDrag') }
+            dragMove.addEvent('drag', this.onColumnDragging.bind(this));
+            dragMove.addEvent('start', this.onColumnDragStart.bind(this));
+            dragMove.addEvent('complete', this.onColumnDragComplete.bind(this));
+            if (columnModel.hidden)
+                dragSt.setStyle('display', 'none');
+            else
+                dragTempWidth += columnModel.width;
+        }
+    }
+    /** Cuerpo **/
+    var bDiv = new Element('div');
+    bDiv.addClass('bDiv');
+    bDiv.setStyle('width', '100%');
+    bDiv.setStyle('height', bodyHeight);
+    this.container.appendChild(bDiv);
+    //  scroll event
+    this.onBodyScrollBind = this.onBodyScroll.bind(this);
+    bDiv.addEvent('scroll', this.onBodyScrollBind);
+    //alert(this.visibleColumns);
+    this.ulBody = new Element('ul');
+    this.ulBody.setStyle('width', this.sumWidth + this.visibleColumns * (Browser.ie ? 1 : 1)); // da se ne vidi visak, ul je overflow hidden
+    bDiv.appendChild(this.ulBody);
+    /** Paginadores **/
+    if (this.options.pagination && !this.container.getElement('div.pDiv')) {
+        var pDiv = new Element('div');
+        pDiv.addClass('pDiv');
+        pDiv.setStyle('width', '100%');
+        pDiv.setStyle('height', 25);
+        pDiv.inject(this.container);
 
+        var pDiv2 = new Element('div')
+            .addClass('pDiv2')
+            .inject(pDiv);
 
-// ********************** Header events **************************
-if (this.options.sortHeader) {
-div.addEvent('click', this.clickHeaderColumn.bind(this));
-}
+        var h = '<div class="pGroup"><select class="rp input-mini" name="rp">';
 
-div.store('column', c);
-div.store('dataType', columnModel.dataType);
-div.addClass('th');
-div.setStyle('width', columnModel.width - (Browser.ie ? 6 : 6));
-hDivBox.appendChild(div);
+        // *****
+        var optIdx;
+        var setDefaultPerPage = false;
+        for (optIdx = 0; optIdx < this.options.perPageOptions.length; optIdx++) {
+            if (this.options.perPageOptions[optIdx] != this.options.perPage)
+                h += '<option value="' + this.options.perPageOptions[optIdx] + '">' + this.options.perPageOptions[optIdx] + '</option>';
+            else {
+                setDefaultPerPage = true;
+                h += '<option selected="selected" value="' + this.options.perPageOptions[optIdx] + '">' + this.options.perPageOptions[optIdx] + '</option>';
+            }
+        }
+        // *****
 
-if (columnModel.hidden) {
-div.setStyle('display', 'none');
-} else {
-this.sumWidth += columnModel.width+20;/** Se suman 20px, adicionales por cada columna ya que cada columna tiene un padding de 10px, a izquierda y derecha **/
-this.visibleColumns++;
-}
+        h += '</select></div>';
 
-var header = columnModel.header;
-if (header) {
-div.innerHTML = header;
-}
-}
-hDivBox.setStyle('width', this.sumWidth + this.visibleColumns * 2);
-if (!this.options.showHeader){hDiv.setStyle('display', 'none');}
-/** Columnas **/
-// odredivanje visine body dijela
-if (this.options.height) {
-var bodyHeight = this.getBodyHeight();
-this.container.setStyle('height', this.options.height);
-}
+        h += '<div class="btnseparator"></div><div class="pGroup"><div class="pFirst pButton"></div><div class="pPrev pButton"></div></div>';
+        h += '<div class="btnseparator"></div><div class="pGroup"><span class="pcontrol"><input class="cpage input-mini" type="text" value="1" size="4" style="text-align:center"/> / <span></span></span></div>';
+        h += '<div class="btnseparator"></div><div class="pGroup"><div class="pNext pButton"></div><div class="pLast pButton"></div></div>';
+        h += '<div class="btnseparator"></div><div class="pGroup"><div class="pReload pButton"></div></div>';
+        h += '<div class="btnseparator"></div><div class="pGroup"><span class="pPageStat"></div>';
 
-if (this.options.resizeColumns) {
-var cDrag = new Element('div').addClass('cDrag').setStyle('top', this.options.buttons ? tDiv.getStyle('height').toInt() : 0).inject(this.container);
-var dragTempWidth = 0;
-for (var c = 0; c < columnCount; c++) {
-var columnModel = this.options.columnModel[c];
-//if (columnModel.hidden) continue;
-var dragSt = new Element('div');
-//alert(dragTempWidth+' '+columnModel.width);
-// -(Browser.Engine.trident ? 10 : 0 )
-var headerHeight = this.options.showHeader ? 24 + 2 : 0; // +2 border
-dragSt.setStyles({top: 1,left: dragTempWidth + columnModel.width,height: headerHeight,display: 'block' }); // bodyHeight+
-dragSt.store('column', c);
-cDrag.appendChild(dragSt);
-/** Eventos **/
-dragSt.addEvent('mouseout', this.outDragColumn.bind(this));
-dragSt.addEvent('mouseover', this.overDragColumn.bind(this));
-var dragMove = new Drag(dragSt, {snap: 0}); // , {container: this.container.getElement('.cDrag') }
-dragMove.addEvent('drag', this.onColumnDragging.bind(this));
-dragMove.addEvent('start', this.onColumnDragStart.bind(this));
-dragMove.addEvent('complete', this.onColumnDragComplete.bind(this));
-if (columnModel.hidden)
-dragSt.setStyle('display', 'none');
-else
-dragTempWidth += columnModel.width;
-}
-}
-/** Cuerpo **/
-var bDiv = new Element('div');
-bDiv.addClass('bDiv');
-bDiv.setStyle('width','100%');
-bDiv.setStyle('height', bodyHeight);
-this.container.appendChild(bDiv);
-//  scroll event
-this.onBodyScrollBind = this.onBodyScroll.bind(this);
-bDiv.addEvent('scroll', this.onBodyScrollBind);
-//alert(this.visibleColumns);
-this.ulBody = new Element('ul');
-this.ulBody.setStyle('width', this.sumWidth + this.visibleColumns * (Browser.ie ? 1 : 1)); // da se ne vidi visak, ul je overflow hidden
-bDiv.appendChild(this.ulBody);
-/** Paginadores **/
-if(this.options.pagination&&!this.container.getElement('div.pDiv')) {
-var pDiv = new Element('div');
-pDiv.addClass('pDiv');
-pDiv.setStyle('width','100%');
-pDiv.setStyle('height',25);
-pDiv.inject(this.container);
+        if (this.options.filterInput)
+            h += '<div class="btnseparator"></div><div class="pGroup"><span class="pcontrol"><input class="cfilter" type="text" value="" style="" /><span></div>';
 
-var pDiv2 = new Element('div')
-.addClass('pDiv2')
-.inject(pDiv);
+        pDiv2.innerHTML = h;
 
-var h = '<div class="pGroup"><select class="rp input-mini" name="rp">';
+        // set this.options.perPage value from this.options.perPageOptions array
+        var rpObj = pDiv2.getElement('.rp');
+        if (!setDefaultPerPage && rpObj.options.length > 0) {
+            this.options.perPage = rpObj.options[0].value;
+            rpObj.options[0].selected = true;
+        }
+        // ********
 
-// *****
-var optIdx;
-var setDefaultPerPage = false;
-for (optIdx = 0; optIdx < this.options.perPageOptions.length; optIdx++) {
-if (this.options.perPageOptions[optIdx] != this.options.perPage)
-h += '<option value="' + this.options.perPageOptions[optIdx] + '">' + this.options.perPageOptions[optIdx] + '</option>';
-else {
-setDefaultPerPage = true;
-h += '<option selected="selected" value="' + this.options.perPageOptions[optIdx] + '">' + this.options.perPageOptions[optIdx] + '</option>';
-}
-}
-// *****
+        pDiv2.getElement('.pFirst').addEvent('click', this.firstPage.bind(this));
+        pDiv2.getElement('.pPrev').addEvent('click', this.prevPage.bind(this));
+        pDiv2.getElement('.pNext').addEvent('click', this.nextPage.bind(this));
+        pDiv2.getElement('.pLast').addEvent('click', this.lastPage.bind(this));
+        pDiv2.getElement('.pReload').addEvent('click', this.refresh.bind(this));
+        pDiv2.getElement('.rp').addEvent('change', this.perPageChange.bind(this));
+        pDiv2.getElement('input.cpage').addEvent('keyup', this.pageChange.bind(this));
 
-h += '</select></div>';
-
-h += '<div class="btnseparator"></div><div class="pGroup"><div class="pFirst pButton"></div><div class="pPrev pButton"></div></div>';
-h += '<div class="btnseparator"></div><div class="pGroup"><span class="pcontrol"><input class="cpage input-mini" type="text" value="1" size="4" style="text-align:center"/> / <span></span></span></div>';
-h += '<div class="btnseparator"></div><div class="pGroup"><div class="pNext pButton"></div><div class="pLast pButton"></div></div>';
-h += '<div class="btnseparator"></div><div class="pGroup"><div class="pReload pButton"></div></div>';
-h += '<div class="btnseparator"></div><div class="pGroup"><span class="pPageStat"></div>';
-
-if (this.options.filterInput)
-h += '<div class="btnseparator"></div><div class="pGroup"><span class="pcontrol"><input class="cfilter" type="text" value="" style="" /><span></div>';
-
-pDiv2.innerHTML = h;
-
-// set this.options.perPage value from this.options.perPageOptions array
-var rpObj = pDiv2.getElement('.rp');
-if (!setDefaultPerPage && rpObj.options.length > 0) {
-this.options.perPage = rpObj.options[0].value;
-rpObj.options[0].selected = true;
-}
-// ********
-
-pDiv2.getElement('.pFirst').addEvent('click', this.firstPage.bind(this));
-pDiv2.getElement('.pPrev').addEvent('click', this.prevPage.bind(this));
-pDiv2.getElement('.pNext').addEvent('click', this.nextPage.bind(this));
-pDiv2.getElement('.pLast').addEvent('click', this.lastPage.bind(this));
-pDiv2.getElement('.pReload').addEvent('click', this.refresh.bind(this));
-pDiv2.getElement('.rp').addEvent('change', this.perPageChange.bind(this));
-pDiv2.getElement('input.cpage').addEvent('keyup', this.pageChange.bind(this));
-
-if (this.options.filterInput)
-pDiv2.getElement('input.cfilter').addEvent('change', this.firstPage.bind(this)); // goto 1 & refresh
-}
+        if (this.options.filterInput)
+            pDiv2.getElement('input.cfilter').addEvent('change', this.firstPage.bind(this)); // goto 1 & refresh
+    }
 },
 edit:function(options){
 var sels = this.getSelectedIndices();
