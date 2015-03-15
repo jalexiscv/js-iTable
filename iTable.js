@@ -869,13 +869,11 @@ renderData:function(){
             });
           }
 
-          // title
-          if (columnModel.title)
+          /** Titulo **/
+          if (columnModel.title){
             div.title = rowdata[columnModel.title];
-
-
+          }
           if (columnModel.dataType == "checkbox") {
-
             var input = new Element('input', {
               type: "checkbox"
             });
@@ -1069,24 +1067,17 @@ this.elements.each(function(el, i) {
         };
         //
         el.compare = function(a, b) {
-          // a i b su LI elementi
           var var1 = a.getChildren()[i].innerHTML.trim();
           var var2 = b.getChildren()[i].innerHTML.trim();
           //console.log(el.sortBy);
-
-          //var1 = a.getChildren()[i].firstChild.data;
-          //var2 = b.getChildren()[i].firstChild.data;
-
           if (dataType == 'number') {
             var1 = parseFloat(var1);
             var2 = parseFloat(var2);
-
             if (el.sortBy == 'ASC') {
               return var1 - var2;
             } else {
               return var2 - var1;
             }
-
           } else if (dataType == 'string') {
             var1 = var1.toUpperCase();
             var2 = var2.toUpperCase();
